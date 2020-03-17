@@ -1,0 +1,25 @@
+<%- include("partials/header") %>
+
+<div class="container">
+        
+    <div style="width:40%; margin:25px auto;">
+        <h1><%= post.question %><%= post._id%></h1>    
+        <div id="editorjs"></div>
+        <button class="btn btn-lg btn-primary btn-block " id="save-button" type="submit">Submit</button>
+        <a href="/discuss/question/<%= post._id%>" ><button class="btn btn-lg btn-block btn-warning mt-4">Cancel</button></a>
+    </div>
+</div>    
+
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script><!-- Header -->
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script><!-- Image -->
+ 
+<!-- <script src="../dist/editor.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+
+<script>
+    var url = '/discuss/answer/'+ "<%=post._id%>" 
+</script>
+
+<script src="/script/ans.js"></script>
+
+<%- include("partials/footer") %>   
