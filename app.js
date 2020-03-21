@@ -11,6 +11,7 @@ const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
 const seeder = require("./seeder");
 const nodemailer = require("nodemailer");
+const formatDistanceToNow = require('date-fns/formatDistanceToNow');
 
 
 seeder()
@@ -118,10 +119,26 @@ app.get("/",(req,res)=>{
     res.render("home.ejs")
 })
 
-app.post('/test',(req,res)=>{
-    console.log(req.body.blocks);
-    var json = JSON.stringify(req.body.blocks);
-    console.log(json); 
+//Upload Routes
+
+app.post('/uploadFile',upload.single('image'),(req,res)=>{
+    try {
+        console.log(req.file);
+        const imgInfo = {
+            "success" : 1,
+            "file": {
+            "url" : `http://localhost:3000/upload/${req.file.filename} `,
+            }
+        }
+        res.send(imgInfo)
+    } catch (error) {
+        res.send(400);
+    }
+})
+
+app.get('/upload/:id',(req,res)=>{
+    const image = require('./public/upload/'+ req.params.id)
+    res.send(image);
 })
 
 // Discuss Routes
@@ -157,7 +174,7 @@ app.post("/discuss/question",isLoggedIn,(req,res)=>{
            post.creater.id = req.user.id;
            post.save();
         //    console.log(post);
-           res.redirect("/discuss");
+           res.redirect(301,"/discuss");
        }
    })
 })
@@ -165,16 +182,27 @@ app.post("/discuss/question",isLoggedIn,(req,res)=>{
 app.get("/discuss/question/:id",(req,res)=>{
     post.findById(req.params.id).populate({
         path : "answer",
-        populate : { path : "comment"}
+        populate : {
+             path : "comment",
+             populate : "creater.user"
+    }
     }).populate({
         path : "answer",
         populate : { path : "like.user"}
+    }).populate({
+        path : "answer",
+        populate : { path : "creater.user"}
     }).exec((err,post)=>{
         if(err)
         console.log(err) 
         else{
             // console.log(post);
-            res.render("show.ejs",{post : post})
+            var Time = [];
+            post.answer.forEach(answer => {
+                var time = formatDistanceToNow( answer.date , { includeSeconds: true });
+                Time.push(time);
+            });
+            res.render("show.ejs",{post : post, time : Time})
             }
         })
            
@@ -247,7 +275,7 @@ app.post("/discuss/answer/:id",(req,res)=>{
         else{
             answer.create({},(err,answer)=>{
             answer.creater.username = req.user.username;
-            answer.creater.id = req.user.id;
+            answer.creater.user = req.user;
             answer.content= JSON.stringify(req.body.blocks);
             answer.save() 
             post.answer.push(answer);
@@ -272,7 +300,7 @@ app.post("/discuss/comment/:postid/:answerid",(req,res)=>{
             console.log(err)
             else{
             comment.creater.username = req.user.username;
-            comment.creater.id = req.user.id;
+            comment.creater.user = req.user;
             comment.text = req.body.comment;
             comment.save() ;
             answer.comment.push(comment);

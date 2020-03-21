@@ -1,6 +1,6 @@
 <%- include("partials/header") %>
 
-<div class="container">
+<div class="container"> 
         
     <div style="width:40%; margin:25px auto;">
         <h1><%= post.question %></h1>    
@@ -11,13 +11,14 @@
 </div>    
 
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script><!-- Header -->
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script><!-- Image -->
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/image@2.3.0"></script><!-- Image -->    
  
 <!-- <script src="../dist/editor.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
 
 <script>
     var url = '/discuss/answer/'+ "<%=post._id%>" 
+    var url2 = '/discuss/question/'+ "<%=post._id%>" 
 </script>
 
 <script src="/script/ans.js"></script>
