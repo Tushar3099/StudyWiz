@@ -53,7 +53,7 @@
                         <%   } %>
                         <%  if(block.type == 'image'){ %>
                         <%  const path = block.data.file.url.replace('http://localhost:3000','') %>
-                            <p><img src='<%- path%>' alt="image" style="max-width: 100%;"></p> 
+                            <p><img src='<%- path%>' alt="image" style="max-width: 100%; max-height:500px;" ></p> 
                         <%   } %>
                         <% }) %>
                         <% if(currentUser){ %>

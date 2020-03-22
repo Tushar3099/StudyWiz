@@ -7,11 +7,14 @@ const LocalStrategy=require("passport-local").Strategy;
 const passportLocalMongoose=require("passport-local-mongoose");
 const multer  = require('multer');
 const FacebookStrategy = require('passport-facebook');
-const cookieSession = require('cookie-session');
-const cookieParser = require('cookie-parser');
+//const cookieSession = require('cookie-session');
+//const cookieParser = require('cookie-parser');
 const seeder = require("./seeder");
 const nodemailer = require("nodemailer");
 const formatDistanceToNow = require('date-fns/formatDistanceToNow');
+const jwt=require('jsonwebtoken');
+require('dotenv').config();
+const bcrypt=require('bcrypt');
 
 
 seeder()
@@ -321,26 +324,106 @@ app.post("/discuss/comment/:postid/:answerid",(req,res)=>{
 app.get("/register",(req,res)=>{
     res.render("register");
 });
-app.post("/register",(req,res)=>{
-    var image=req.body.image;
+app.post("/register",async(req,res)=>{
+    // var image=req.body.image;
     
-    var newUser=new User({username:req.body.username,email:req.body.email});
-    User.register(newUser,req.body.password,(err,user)=>{
+    // var newUser=new User({username:req.body.username,email:req.body.email});
+    // User.register(newUser,req.body.password,(err,user)=>{
+    //     if(err){
+    //         console.log(err);
+    //         return res.render("register");
+    //     }
+    //     else{
+    //         if(image!==""){
+    //             user.image = image;
+    //         }
+    //         passport.authenticate("local")(req,res,()=>{
+    //             res.redirect("/send");
+    //         })
+    //     }
+        
+    // })
+    const salt = await bcrypt.genSalt();
+    const hashPassword = await bcrypt.hash(req.body.password , salt)
+    const user={
+        username:req.body.username,
+        password:hashPassword,
+        email:req.body.email
+    }
+
+    User.create(user,(err,user)=>{
+        if(err)
+        console.log(err);
+        else{
+            var transport=nodemailer.createTransport({
+                service:"Gmail",
+                auth:{
+                    user: process.env.SERVER_MAIL_ADDRESS,
+                    pass: process.env.SERVER_PASSWORD
+                }
+            });
+            //console.log(user);
+
+            const info={
+                username: user.username,
+                id:user._id,
+                expiry :  new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
+            }
+            var token=jwt.sign(info,process.env.token_access_secret,{expiresIn:'1h'});
+            //console.log(token);
+
+            var mailOptions={
+                from:"noreply <process.env.SERVER_MAIL_ADDRESS>",
+                to: user.email,
+                subject:"Email verification",
+                text : 'Visit this http://localhost:3000/verify/'+token,
+               html : '<a href="http://localhost:3000/verify/'+token+'"><H2>Click on this link to verify your email!!</H2></a>'
+            }
+            console.log(mailOptions);
+
+            transport.sendMail(mailOptions,(email_err,email_data)=>{
+                if(email_err){
+                    console.log(email_err);
+                    res.json(email_err)
+                }
+                 else{
+                   console.log("http://localhost:3000/verify/" + token);
+                   res.send('<h3>email sent</h3>');
+                }
+            })
+
+        }
+    })
+
+});
+
+app.get('/verify/:token',(req,res)=>{
+    const token=req.params.token;
+    jwt.verify(token,process.env.token_access_secret,(err,decoded)=>{
         if(err){
-            console.log(err);
-            return res.render("register");
+            res.status(401).send({message: err.message})
         }
         else{
-            if(image!==""){
-                user.image = image;
-            }
-            passport.authenticate("local")(req,res,()=>{
-                res.redirect("/send");
+            console.log(decoded);
+            User.findById(decoded.id,(err,user)=>{
+                if(err)
+                res.send({err:err})
+                else{
+                    user.isVerified=true;
+                    user.save((err,user)=>{
+                        if(err)
+                        console.log(err);
+                        else
+                        console.log(user);
+                    })
+                    res.redirect('/login')
+                }
             })
         }
-        
     })
-});
+
+})
+
 
 app.get("/login",(req,res)=>{
     res.render("login");
