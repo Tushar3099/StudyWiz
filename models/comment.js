@@ -3,7 +3,7 @@ const mongoose              = require("mongoose")
 var commentSchema = new mongoose.Schema({
     creater : {
         username : String,
-        id : {
+        user : {
                 type : mongoose.Schema.Types.ObjectId ,
                 ref : "User"
              }        

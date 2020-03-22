@@ -3,7 +3,7 @@ const mongoose              = require("mongoose")
 var answerSchema = new mongoose.Schema({
     creater : {
         username : String,
-        id : {
+        user : {
                 type : mongoose.Schema.Types.ObjectId ,
                 ref : "User"
              }        
@@ -23,7 +23,8 @@ var answerSchema = new mongoose.Schema({
                         ref : "User"
                     }  
                ]
-    }
+    },
+    date : {type : Date , default : Date.now},
 
     
 

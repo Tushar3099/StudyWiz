@@ -9,7 +9,7 @@ var userSchema=new mongoose.Schema({
             password:String,
             image : { 
               type : String ,
-              default: "https://www.bsn.eu/wp-content/uploads/2016/12/user-icon-image-placeholder.jpg"
+              default: "https://cdn2.vectorstock.com/i/thumb-large/17/61/male-avatar-profile-picture-vector-10211761.jpg"
             },
             date: {
                 type: Date,

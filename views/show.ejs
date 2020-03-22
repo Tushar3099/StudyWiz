@@ -2,66 +2,120 @@
 
 <div class="container"> 
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
         </div>
-        <div class="col-md-9" >
-            <div class="well">
-                <div>
+        <div class="col-md-8" >
+            <div class="tablet">
+                
+                <h1 style="text-align: left;"><%= post.question %> </h1>
+
+                <div class="ui secondary  menu">
                     <% if(currentUser && post.creater.id != currentUser._id.toString()){ %>
-                    <a href="/discuss/answer/<%= post._id%>" ><button class="btn btn-lg btn-primary btn-block" style="width : 5em; float : right">Answer</button></a>                     
+                            <a href="/discuss/answer/<%= post._id%>" class="item" style="padding: 0px 6px;">
+                                <i class="pencil alternate icon" style="font-size : 1.75em; margin-top: 5px;"></i><h5 style="margin:13px 0 ;">Answer</h5>
+                            </a>                     
                     <% } %>
-                    <h1><%= post.question %> </h1>
                 </div>
-                <p>Answers : <%= post.answer.length%></p>
-                <%  post.answer.forEach((answer)=>{  %>
-                    <div class="answer">
-                            <strong><%= answer.creater.username%></strong>
 
-                            <% var blocks = JSON.parse(answer.content) %>
-                            <% blocks.forEach(block=>{ %>
-                            <%    if(block.type == 'paragraph'){ %>
-                                    <p><%- block.data.text%></p>
-                            <%   } %>
-                            <% }) %>
-                          <% if(currentUser){ %>
-                            <%function search(username, arr){                      %>  
-                                <%   for (var i=0; i < arr.length; i++) {        %>
-                                    <%    if (arr[i].username === username) {   %>
-                                        <%     return true; %>
-                                        <% } %>
-                                        <% } return false;   %>
-                            <% } %>
-                                   
-                            <% if(search(currentUser.username , answer.like.user)){ %>
-                                   <a href="/unlikes/<%= answer._id %>" id="unlike-button">Unlike</a> 
+                <h4 class="ui horizontal divider header" style="margin-top: 0px;">
+                     <%= post.answer.length%> Answers
+                </h4>
 
-                            <% }else{                                               %>
-                                <a href="/likes/<%= answer._id %>" id='like-button'>Like</a>
-                            <%    }                                                 %>
-                                <span id="count"><%= answer.like.count %></span>
-                          <% } %>
-                            
-                            <form action="/discuss/comment/<%= post._id %>/<%= answer._id %>" method="POST">
-                                <% if(currentUser){ %>
-                                    <input type="text" name="comment" placeholder="Add a comment....">
-                                <input type="submit">
-                                <% } %>
-        
-                            </form>
-                            <div class="well">
-                                <h5><Strong>Comments:</Strong></h5>
-
-                                    <%  answer.comment.forEach((comment)=>{  %>
-                                    <em style="float : right"><%=comment.date.toDateString()%></em>
-                                    <strong><%= comment.creater.username%></strong>
-                                    <p><%= comment.text %></p>
-                                
-                            <% }) %> 
+                <%  post.answer.forEach((answer,index)=>{ console.log(answer.creater.user)  %>
+                    <div class="ui raised segment" style="margin : 20px 0; padding : 20px;">
+                        <div class="ui feed">
+                            <div class="event">
+                              <div class="label" style="font-size: 1.55em;">
+                                <img src="<%-answer.creater.user.image%>" style="border-radius: 0;">
+                              </div>
+                              <div class="content">
+                                    <div class="summary">
+                                    <a class="user">
+                                        <%= answer.creater.username%>
+                                    </a>
+                                    <div class="date">
+                                        <%= time[index] %> ago
+                                      </div>
+                                    </div>
+                                </div>
                             </div>
-                    </div>
-                    
+                        </div>
+
+                        <div class="ui section divider" style="margin: 0 0 28px 0 ;"></div>
+
+                        <% var blocks = JSON.parse(answer.content) %>
+                        <% blocks.forEach(block=>{ %>
+                        <%    if(block.type == 'paragraph'){ %>
+                                <p><%- block.data.text%></p>
+                        <%   } %>
+                        <%    if(block.type == 'header'){ %>
+                            <h<%= block.data.level%>> <%- block.data.text%> </h<%= block.data.level%>>
+                        <%   } %>
+                        <%  if(block.type == 'image'){ %>
+                        <%  const path = block.data.file.url.replace('http://localhost:3000','') %>
+                            <p><img src='<%- path%>' alt="image" style="max-width: 100%;"></p> 
+                        <%   } %>
+                        <% }) %>
+                        <% if(currentUser){ %>
+                        <%function search(username, arr){                      %>  
+                            <%   for (var i=0; i < arr.length; i++) {        %>
+                                <%    if (arr[i].username === username) {   %>
+                                    <%     return true; %>
+                                    <% } %>
+                                    <% } return false;   %>
+                        <% } %>
+                                   
+                        <div class="ui section divider"></div>
+
+                        <div class="ui labeled button" tabindex="0">
+                            <div class="ui button">
+                                <i class="heart icon"></i> 
+                                <% if(search(currentUser.username , answer.like.user)){ %>
+                                    <a href="/unlikes/<%= answer._id %>" id="unlike-button">Unlike</a> 
+
+                                <% }else{                                               %>
+                                    <a href="/likes/<%= answer._id %>" id='like-button'>Like</a>
+                                <%    }                                                 %>
+                                    <span id="count"></span>
+                                <% } %>
+                            </div>
+                            <a class="ui basic label">
+                                <%= answer.like.count %>
+                            </a>
+                        </div>
+                            
+                        <form action="/discuss/comment/<%= post._id %>/<%= answer._id %>" method="POST">
+                            <div class="ui action input" style="margin : 10px 0px">
+                            <% if(currentUser){ %>
+                            <input type="text" placeholder="Comment..." name="comment">
+                            <button class="ui button">Comment</button>
+                            <% } %>
+                            </div>
+                        </form>
+                            
+                        <div class="ui vertical segment">
+                            <div class="ui comments">
+                                <h3 class="ui dividing header">Comments</h3>
+                                <%  answer.comment.forEach((comment)=>{  %>
+                                <div class="comment">
+                                    <a class="avatar">
+                                    <img src="<%-comment.creater.user.image%>">
+                                    </a>
+                                    <div class="content">
+                                    <a class="author"><%-comment.creater.username%><%console.log(comment.creater.user)%></a>
+                                    <div class="metadata">
+                                        <span class="date"><%=comment.date.toDateString()%></span>
+                                    </div>
+                                    <div class="text">
+                                        <%= comment.text %>
+                                    </div>
+                                    </div>
+                                </div>
+                                <% }) %> 
+                            </div>
+                        </div>
+                    </div>    
                 <% }) %>  
-            </div>             
         </div>
     </div>
 </div>
