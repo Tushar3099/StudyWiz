@@ -12,11 +12,21 @@ var editor = new EditorJS({
         }
       }
     },
+
     header: Header,
+
+    list: {
+      class: List,
+      inlineToolbar: true,
+    },
+
+
   }
 
   
 });
+
+
 
 const saveButton = document.getElementById('save-button');
 
@@ -30,7 +40,7 @@ const saveButton = document.getElementById('save-button');
               },                                 
           body: JSON.stringify(savedData),
           redirect : "follow"      
-          }) 
+          })
         window.location.replace(url2)
 
       })                                         

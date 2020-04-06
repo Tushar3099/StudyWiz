@@ -21,12 +21,12 @@
                      <%= post.answer.length%> Answers
                 </h4>
 
-                <%  post.answer.forEach((answer,index)=>{ console.log(answer.creater.user)  %>
+                <%  post.answer.forEach((answer,index)=>{  %>
                     <div class="ui raised segment" style="margin : 20px 0; padding : 20px;">
                         <div class="ui feed">
                             <div class="event">
-                              <div class="label" style="font-size: 1.55em;">
-                                <img src="<%-answer.creater.user.image%>" style="border-radius: 0;">
+                              <div class="label" style="font-size: 1.75em; padding: 0; " >
+                                <img src="<%-answer.creater.user.image%>" style="border-radius: 5px;">
                               </div>
                               <div class="content">
                                     <div class="summary">
@@ -51,12 +51,29 @@
                         <%    if(block.type == 'header'){ %>
                             <h<%= block.data.level%>> <%- block.data.text%> </h<%= block.data.level%>>
                         <%   } %>
+                        <%    if(block.type == 'list'){ %>
+                            <% if(block.data.style == 'unordered'){ %>
+                            <ul>
+                                <% block.data.items.forEach(item=>{ %>
+                                    <li> <%-item%> </li>
+                                <% }) %>
+                            </ul>
+                            <% } %>
+                            <% if(block.data.style == 'ordered'){ %>
+                                <ol>
+                                    <% block.data.items.forEach(item=>{ %>
+                                        <li> <%-item%> </li>
+                                    <% }) %>
+                                </ol>
+                                <% } %>
+                        <%   } %>
                         <%  if(block.type == 'image'){ %>
                         <%  const path = block.data.file.url.replace('http://localhost:3000','') %>
-                            <p><img src='<%- path%>' alt="image" style="max-width: 100%; max-height:500px;" ></p> 
+                            <p><img src='<%- path%>' alt="image" style="max-width: 100%; max-height: 500px; border-radius: 5px;"></p> 
                         <%   } %>
                         <% }) %>
                         <% if(currentUser){ %>
+
                         <%function search(username, arr){                      %>  
                             <%   for (var i=0; i < arr.length; i++) {        %>
                                 <%    if (arr[i].username === username) {   %>
@@ -66,20 +83,20 @@
                         <% } %>
                                    
                         <div class="ui section divider"></div>
-
+                                    
                         <div class="ui labeled button" tabindex="0">
                             <div class="ui button">
                                 <i class="heart icon"></i> 
                                 <% if(search(currentUser.username , answer.like.user)){ %>
-                                    <a href="/unlikes/<%= answer._id %>" id="unlike-button">Unlike</a> 
-
+                                    <a href="/unlikes/<%= answer._id %>" id="unlike-button" style="display: inline-block;">Unlike</a>
+                                    <script> doit("Fuck You") </script> 
                                 <% }else{                                               %>
-                                    <a href="/likes/<%= answer._id %>" id='like-button'>Like</a>
+                                    <a href="/likes/<%= answer._id %>" id='like-button' style="display: inline-block;">Like</a>
                                 <%    }                                                 %>
                                     <span id="count"></span>
                                 <% } %>
                             </div>
-                            <a class="ui basic label">
+                            <a class="ui basic label" >
                                 <%= answer.like.count %>
                             </a>
                         </div>
@@ -87,7 +104,7 @@
                         <form action="/discuss/comment/<%= post._id %>/<%= answer._id %>" method="POST">
                             <div class="ui action input" style="margin : 10px 0px">
                             <% if(currentUser){ %>
-                            <input type="text" placeholder="Comment..." name="comment">
+                            <input type="text" placeholder="Comment..." name="comment" required >
                             <button class="ui button">Comment</button>
                             <% } %>
                             </div>
@@ -119,7 +136,6 @@
         </div>
     </div>
 </div>
-
 
 
 <%- include("partials/footer") %>

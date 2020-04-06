@@ -19,6 +19,8 @@ var postSchema = new mongoose.Schema({
                      }        
               },
     date : {type : Date , default : Date.now}
-})              
+})    
+
+postSchema.index({ question: 'text' });
 
 module.exports=mongoose.model("post",postSchema);
