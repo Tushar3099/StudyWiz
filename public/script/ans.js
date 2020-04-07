@@ -42,14 +42,15 @@ console.log('I m in ans.js')
                },                                 
            body: JSON.stringify(savedData),
            redirect : "follow"      
+           }).then(response=>{
+             console.log(response.redirected)
+             console.log(response.url)
+             window.location.replace(response.url)
+
            })
-         window.location.replace(url2)
  
        })                                         
   })                                              
  
  
-  var element = document.querySelector('.codex-editor__redactor');
- 
-  element.style.padding = "0px 0px 0px 0px";
  

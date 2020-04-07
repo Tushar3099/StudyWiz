@@ -94,13 +94,13 @@
                                     <a href="/likes/<%= answer._id %>" id='like-button' style="display: inline-block;">Like</a>
                                 <%    }                                                 %>
                                     <span id="count"></span>
-                                <% } %>
+                                
                             </div>
                             <a class="ui basic label" >
                                 <%= answer.like.count %>
                             </a>
                         </div>
-                            
+                           <% } %> 
                         <form action="/discuss/comment/<%= post._id %>/<%= answer._id %>" method="POST">
                             <div class="ui action input" style="margin : 10px 0px">
                             <% if(currentUser){ %>

@@ -19,6 +19,7 @@ const uploadRoutes=require('./routes/upload');
 const answerRoutes=require('./routes/answer');
 const registerRoutes=require('./routes/register');
 const loginRoutes=require('./routes/login');
+const searchRoutes=require('./routes/search.js');
 const faker = require("faker")
  
 
@@ -44,6 +45,7 @@ app.use(likesRoutes);
 app.use(uploadRoutes);
 app.use(loginRoutes);
 app.use(registerRoutes);
+app.use(searchRoutes);
 
 app.listen("3000",()=>{
     console.log("server is listening!");

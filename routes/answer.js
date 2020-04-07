@@ -47,7 +47,7 @@ router.post("/discuss/answer/:id",(req,res)=>{
             post.save()
             console.log(post)
             console.log(answer)
-            res.redirect("/discuss")
+            res.redirect("/discuss/question/"+ post._id)
         })
       }
     })
