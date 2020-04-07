@@ -1,0 +1,174 @@
+body{
+    z-index: -1;
+    padding-top: 100px;
+    background-color: rgb(255, 255, 255);
+    min-height : 100vh;
+    height: 100%;
+}
+ 
+.content{
+    min-height : 83.7%;
+    
+}
+
+#footer{
+    margin : 40px 0 0 0;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background: whitesmoke;
+}
+
+#footer p {
+    align-self: center;
+}
+
+#img-icon{
+    font-size: 2em;
+    margin-top: 10px ;
+}
+
+#upload{
+    float : right;
+}
+
+#img-icon:hover{
+    cursor: pointer;
+    color : rgba(255, 187, 41, 0.836);
+}
+
+input[type=file] {
+    display: none;
+}
+
+#new-ans{
+    min-height: 180px;
+    width: 250px;
+    background-color: white;
+    border-radius: 2%;
+    padding: 16px 16px 32px;
+    position: relative;
+    line-height: 1.4;
+    overflow-wrap: break-word;
+
+}
+
+.like{
+    display: none;
+}
+
+.unlike{
+    display : none; 
+}
+
+.thumbnail{
+    padding: 20px;;
+}
+#question{
+    font-size: 20px;
+}
+
+.feeds{
+    min-height: 300px;
+    width : 200px;
+    border-right : 1px solid rgb(34, 32, 32) ;
+}
+
+.feeds h5{
+    padding-left: 25px;
+}
+
+.feeds ul li {
+    padding: 8px;
+}
+
+.navbar{
+    position: absolute;
+    top: 0%;
+    width: 100%;
+    margin-bottom: 0em;
+    background-color: rgb(17, 35, 53);
+}
+
+.blogger b icon{
+    display: inline;
+    font-size: 5em;
+}
+
+#brand{
+    font-size: 1.5em; 
+    padding: 8px 16px; 
+    color: rgb(255, 255, 255);
+    border-right: 1px solid rgba(255, 255, 255, 0.692);
+    margin-right: 16px;
+
+}
+
+.ui.secondary.inverted.pointing.menu .item {
+    margin-bottom: 4.74px;
+}
+
+#user-image{
+    border-radius: 50%;
+    width: 2.75em;
+    position: relative;
+    top: 0.375em;
+    left: 0.374em;
+}
+
+#user-image-back{
+    margin-top: 4.7px;
+    border-radius: 50%;
+    width : 3.5em;
+    height: 3.5em;
+    background-color: rgba(255, 248, 220, 0);
+    transition: background-color 0.3s ease-out  ;
+}
+
+#user-image-back:hover{
+    background-color: rgba(255, 248, 220, 0.116);
+}
+
+
+
+
+.ui piled segment:hover{
+    background-color: burlywood ;
+}
+
+.ui.inverted.segment{
+position: fixed;
+top: 0%;
+right: 0%;
+left: 0;
+z-index: 5;
+border-radius: 0px;
+background: rgb(9, 24, 41);
+-webkit-box-shadow: 3px 6px 15px -6px rgba(14,16,51,0.8);
+-moz-box-shadow: 3px 6px 15px -6px rgba(14,16,51,0.8);
+box-shadow: 3px 6px 15px -6px rgba(14,16,51,0.8);
+padding : 10px 14px ;
+}
+
+.ui.segment{
+    border-radius: 0px;
+}
+
+#editorjs{
+    border-radius: 20px;
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+            0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+            0 12.5px 10px rgba(0, 0, 0, 0.06),
+            0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+            0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+            0 100px 80px rgba(0, 0, 0, 0.12)
+          ;
+
+    margin: 20px 0px;
+    padding: 20px;
+}
+
+#save-button{
+    margin-bottom: 10px;
+}
