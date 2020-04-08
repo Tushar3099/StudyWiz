@@ -4,12 +4,13 @@ const post = require("./models/post");
 const user = require("./models/users");
 const comment = require("./models/comment");
 const answer = require("./models/answer");
+const bcrypt = require('bcrypt')
 
 async function createPosts(){
     await user.find({},async (err,user)=>{
         user.forEach(async (user)=>{
             await post.create({
-                question : faker.lorem.sentence(10,5) + "?",
+                question : faker.random.words(15)+'?',
             },(err,post)=>{
                 post.creater.username = user.username;
                 post.creater.id = user.id;
@@ -18,6 +19,22 @@ async function createPosts(){
         })
         console.log("Posts created");
     })
+}
+
+async function createUser(){
+    const random =Math.floor(Math.random()*5+6);
+    for(var i=0 ;i<random ; i++){
+        const salt = await bcrypt.genSalt(); 
+        const hashPassword = await bcrypt.hash('123', salt);
+        await user.create({
+        username : faker.name.firstName() ,
+        password : hashPassword ,
+        email : faker.internet.email(),
+        image : faker.internet.avatar(),
+        isverified : true,
+        })
+    }
+    
 }
 
 async function deleteDB(){
@@ -44,27 +61,34 @@ async function deleteDB(){
     })
 }
 
-// async function createAnswers(){
-//     await post.find({},(err,post)=>{
-//         post.forEach(async(post)=>{
-//             await answer.create({},async(err,answer)=>{
-//                 await user.find({},(err,user)=>{
-//                     const j=Math.floor(Math.random()*3+1);
+async function createAnswers(){
+    await post.find({},(err,post)=>{
+        post.forEach(async(post)=>{
+                       
+        
+            await user.find({},async(err,user)=>{
+                var i = Math.floor(Math.random()*user.length)
+                var ans = [{type:"paragraph",data:{text : faker.lorem.paragraph(5) }}]
+
+                await answer.create({},async(err,answer)=>{
+                answer.creater.user = user[i]
+                answer.creater.username = user[i].username
+                answer.content =  JSON.stringify(ans);
+                await answer.save(); 
+                console.log(answer.like.count)
+                post.answer.push(answer);
+                post.save();
+                })
+            })
                     
-//                         const k=Math.floor(Math.random()*(user.length-1)+1);
-//                         answer.creater.username = user[k].username;
-//                         answer.creater.id = user[k].id;
-//                         answer.content.text = faker.lorem.paragraphs(5) ;
-//                         answer.save(); 
-//                         post.answer.push(answer);
-//                         post.save();
-//                         // console.log(answer);
-//                 })
-//             })
-//         })
-//         console.log("Answers Created")
-//     })
-// }
+                
+            await post.save();
+
+        })
+        
+    })
+    console.log("Answers Created")
+}
 
 // async function createComments(){
 //     await answer.find({},(err,answer)=>{
@@ -91,8 +115,9 @@ async function deleteDB(){
 
 async function seeder(){
     await deleteDB();
+    // await createUser();
     await createPosts();
-    // await createAnswers();
+    await createAnswers();
     // await createComments();
 }
 
