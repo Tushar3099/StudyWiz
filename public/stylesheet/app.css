@@ -1,13 +1,18 @@
 body{
     z-index: -1;
-    padding-top: 100px;
+    padding-top: 68px;
     background-color: rgb(255, 255, 255);
     min-height : 100vh;
     height: 100%;
+    margin-top: 10px;
 }
- 
+
+.right.menu a.item{
+    float: right;
+}
+
 .content{
-    min-height : 83.7%;
+    min-height : 84.4%;
     
 }
 
@@ -148,7 +153,7 @@ background: rgb(9, 24, 41);
 -webkit-box-shadow: 3px 6px 15px -6px rgba(14,16,51,0.8);
 -moz-box-shadow: 3px 6px 15px -6px rgba(14,16,51,0.8);
 box-shadow: 3px 6px 15px -6px rgba(14,16,51,0.8);
-padding : 10px 14px ;
+padding : 5px 14px ;
 }
 
 .ui.segment{

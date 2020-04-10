@@ -1,0 +1,337 @@
+html,body{
+    height: 100%;
+}
+
+body{
+    background: rgba(255, 255, 255, 0.795);
+    font-family: 'Montserrat', sans-serif;
+    min-height: 100%;
+}
+
+.left{
+    z-index: -1;
+    width : 50%;
+    height: 91.6%;
+    float: left;
+}
+
+.rightbar{
+    width : 50%;
+    height: 91.6%;
+    float: right;
+}
+
+.flip-container, .front, .back {
+	width: 320px;
+    height: 420px;
+}
+
+.front, .back {
+    background-color: white;
+	backface-visibility: hidden;
+	position: absolute;
+	top: 0;
+    left: 0;
+    border-radius: 15px;
+    -webkit-box-shadow: 0px 3px 44px -18px rgba(0,0,0,0.74);
+    -moz-box-shadow: 0px 3px 44px -18px rgba(0,0,0,0.74);
+    box-shadow: 0px 3px 44px -18px rgba(0,0,0,0.74);
+}
+
+/* .fa{
+    font-size: 2.5em; 
+    font-weight: 600;
+    z-index: 0;
+    transform: rotate(30deg);
+    position: relative;
+    top: 52px;
+    left: -1%;
+    color: rgba(255, 102, 0, 0.479);
+}
+
+.fa-film{
+    top: 193px;
+    left: -1.4%;
+    font-size: 2.5em;
+    transform: rotate(-55deg);
+}
+
+.fa-comments{
+    top: 76px;
+    left: -9%;
+    font-size: 2.8em;
+    transform: rotate(-56.7deg);
+}
+
+.fa-address-card{
+    top: 50px;
+    left: 0%;
+    font-size: 2.6em;
+    transform: rotate(-7.7deg);
+}
+
+.fa-folder{
+    top: 76px;
+    left: 10%;
+    font-size: 2.1em;
+    transform: rotate(25.3deg);
+}
+
+.fa-image{
+    top: 32px;
+    left: 21%;
+    font-size: 2.5em;
+    transform: rotate(13.3deg);
+}
+
+.fa-cut{
+    top: 120px;
+    left: -36%;
+    font-size: 2.5em;
+    transform: rotate(29deg);
+}
+
+.fa-link {
+    top: 206px;
+    left: 29%;
+    font-size: 2.2em;
+    transform: rotate(-82deg);
+}
+
+.fa-clipboard{
+    top: 108px;
+    left: 15%;
+    font-size: 3.5em;
+    transform: rotate(42deg);
+}
+
+.fa-paperclip{
+    top: 118px;
+    left: -24%;
+    font-size: 1.9em;
+    transform: rotate(-22deg);
+}
+
+.fa-list-ul{
+    top: 1px;
+    left: -32%;
+    font-size: 2.3em;
+    transform: rotate(-17.7deg);
+}
+
+.icon{
+
+    animation : squeez 0.75s ease-in-out forwards,squeez 0.75s ease-in-out forwards reverse;
+    animation-delay: 0s , 0.75s;
+} */
+
+
+@keyframes squeez{
+
+    100%{
+        transform: rotate(180deg) ;
+        font-size: 0em;
+        top: 353px;
+        left: 34%;
+    }
+}
+
+.head{
+    font-weight: 800 !important;
+    font-size: 1.95em !important;
+    margin: 20px 0;
+}
+
+.para{
+    font-weight: 400;
+    font-size: 0.95em;
+    margin: 5px 0;
+}
+
+.change{
+    display: block;
+    color: rgb(255, 102, 0);
+    margin: 2px 0;
+    font-weight: 500;
+    font-size: 0.75em;
+    float: right;
+}
+
+.change:hover,.change2:hover{
+  border-bottom: 1.5px solid rgb(255, 102, 0);
+  cursor: pointer;
+}
+
+input{
+    border: none;
+    width: 100%;
+    background-color: rgba(235, 235, 235, 0.795);
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    transition: all 0.5s;
+    font-family:'Montserrat', sans-serif;
+}
+
+input:focus,button:focus{
+    outline: none;
+    transform: scale(1.05) ;
+    background-color: white;
+    /* -webkit-box-shadow: 0px 0px 31px -19px rgba(0,0,0,0.74);
+    -moz-box-shadow: 0px 0px 31px -19px rgba(0,0,0,0.74);
+    box-shadow: 0px 0px 31px -19px rgba(0,0,0,0.74); */
+}
+
+button{
+    border: none;
+    width: 100%;
+    background-color: rgb(255, 102, 0);
+    color: white;
+    padding: 15px;
+    margin: 30px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+button.reset{
+    margin: 10px 0;
+}
+
+.change2{
+    color: rgb(255, 102, 0);
+    margin: 2px 0;
+    font-weight: 500;
+    font-size: 0.75em;
+    width: 119px;
+    margin: 10px auto;
+}
+button:hover{
+    color: rgb(255, 102, 0);
+    background-color: white;
+    border: 1px solid rgb(255, 102, 0);
+}
+
+.left img{
+    height: 500px;
+    position: relative;
+    top: 55px;
+    left: -13%;
+    float: right;
+}
+
+.flip-container {
+    position: relative;
+    top: 110px;
+    right: -12%;
+	perspective: 1000px;
+}
+
+    .flip-container.flip .flipper {
+    animation : cardflip 1.5s forwards ease-in-out;
+	}
+
+    .flip-container.unflip .flipper {
+    animation : unflip 1.5s forwards ease-in-out;
+    }
+
+
+.flipper {
+	/* transition: 0.6s; */
+	transform-style: preserve-3d;
+	position: relative;
+}
+
+.front {
+    z-index: 2;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+}
+
+.back {
+	transform: rotateY(180deg);
+}
+
+.innercontent{
+    padding: 20px 40px;
+    height: 100%;
+}
+
+@keyframes cardflip{
+    0%{
+        transform: scale(1) ;
+    }
+    25%{
+        transform: scale(1.05) rotateY(0deg);
+    }
+    75%{
+        transform: scale(1.05) rotateY(180deg);
+    }
+    100%{
+        transform: scale(1) rotateY(180deg) ;
+    }
+}
+
+@keyframes unflip{
+    0%{
+        transform: scale(1) rotateY(180deg);
+    }
+    25%{
+        transform: scale(1.05) rotateY(180deg);
+    }
+    75%{
+        transform: scale(1.05) rotateY(0deg);
+    }
+    100%{
+        transform: scale(1)  ;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .box{
+    height : 100px;
+    width: 100px;
+    background:white;
+    position: relative;
+    margin: auto;
+    top: 100px;
+    transition-property: background,border-radius,transform;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in;
+
+    animation : box 3s infinite alternate ;
+} */
+
+/* .box:hover{
+    background: crimson;
+    border-radius: 50%;
+    transform: rotateY(180deg);
+}  */
+
+/* @keyframes box{
+    0%{ background-color: white;                left: 0px; top: 0px;    border-radius: 50%;} 
+    25%{ background-color: aqua;                left: 100px; top: 0px;  border-radius: 50px 0 0 0 ;} 
+    50%{ background-color: rgb(0, 195, 255);    left: 100px; top: 100px;border-radius: 50px 50px 0 0 ;} 
+    75%{ background-color: rgb(50, 224, 172);   left: 0px; top: 100px;  border-radius: 50px 50px 50px 0 ;} 
+    100%{ background-color: white;              left: 0px; top: 0px;    border-radius: 50%;} 
+} */
