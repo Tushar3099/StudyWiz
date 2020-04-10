@@ -10,7 +10,7 @@ const cookieParser = require('cookie-parser')
 const seeder = require("./seeder");
 const formatDistanceToNow = require('date-fns/formatDistanceToNow');
 require('dotenv').config();
-const middleware = require('./middleware/middle')
+const middleware = require('./middleware/middle');
 const indexRoutes=require('./routes/index');
 const likesRoutes=require('./routes/likes');
 const discussRoutes=require('./routes/discuss');
@@ -20,7 +20,7 @@ const answerRoutes=require('./routes/answer');
 const registerRoutes=require('./routes/register');
 const loginRoutes=require('./routes/login');
 const searchRoutes=require('./routes/search.js');
-const faker = require("faker")
+const faker = require("faker");
  
 
 mongoose.connect("mongodb://localhost/bot_kill",{useNewUrlParser:true,useUnifiedTopology: true});
