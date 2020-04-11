@@ -26,9 +26,7 @@ var userSchema=new mongoose.Schema({
   email : String,
   image : {
     type : String,
-
     default : "https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png",
-
   },
   isverified : {type : Boolean , default : false}
 

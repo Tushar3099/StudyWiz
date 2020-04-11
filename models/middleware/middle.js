@@ -7,7 +7,6 @@ const middle =  async (req,res,next)=>{
                     // console.log('I m NOT in try catch')
                     res.locals.currentUser = null;
                     res.locals.url = req.url;
-
                     return next();
                 }
 
@@ -23,11 +22,9 @@ const middle =  async (req,res,next)=>{
                         else{
                             // console.log('I m setting up currentUser')
                             res.locals.currentUser = user;
-
                             res.locals.url = req.url;
                             req.user = user;
                             // console.log(req.url)
-
                             // console.log(res.locals.currentUser)
                         }
                     })

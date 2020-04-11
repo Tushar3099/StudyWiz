@@ -1,0 +1,33 @@
+const mongoose              = require("mongoose")
+
+var answerSchema = new mongoose.Schema({
+    creater : {
+        username : String,
+        user : {
+                type : mongoose.Schema.Types.ObjectId ,
+                ref : "User"
+             }        
+      },
+    content : String,
+    comment : [
+                {
+                    type : mongoose.Schema.Types.ObjectId ,
+                    ref : "comment"
+                }
+              ],
+    like : {
+        count : { type : Number , default : 0},
+        user  : [   
+                    {
+                        type : mongoose.Schema.Types.ObjectId,
+                        ref : "User"
+                    }  
+               ]
+    },
+    date : {type : Date , default : Date.now},
+
+    
+
+})
+
+module.exports=mongoose.model("answer",answerSchema);
