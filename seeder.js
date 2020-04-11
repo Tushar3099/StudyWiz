@@ -75,10 +75,12 @@ async function createAnswers(){
                 answer.creater.username = user[i].username
                 answer.content =  JSON.stringify(ans);
                 await answer.save(); 
+
                 post.answer.push(answer);
                 post.save();
                 })
             })
+
 
         })
         
