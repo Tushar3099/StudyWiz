@@ -15,6 +15,7 @@ router.post('/search',(req,res)=>{
             if(err)
             console.log(err)
             else{
+
               res.render("search",{allPost : allPost});  
             }
         // console.log(allPost)
