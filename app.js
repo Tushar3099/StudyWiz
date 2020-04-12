@@ -9,6 +9,7 @@ const mailer = require('nodemailer')
 const cookieParser = require('cookie-parser')
 const seeder = require("./seeder");
 const formatDistanceToNow = require('date-fns/formatDistanceToNow');
+const methodOverride = require('method-override');
 require('dotenv').config();
 
 const middleware = require('./middleware/middle');
@@ -22,6 +23,7 @@ const answerRoutes=require('./routes/answer');
 const registerRoutes=require('./routes/register');
 const loginRoutes=require('./routes/login');
 const searchRoutes=require('./routes/search.js');
+const profileRoutes=require('./routes/profile.js');
 
 const faker = require("faker");
 
@@ -31,6 +33,7 @@ mongoose.connect("mongodb://localhost/bot_kill",{useNewUrlParser:true,useUnified
 app.use(cors());
 app.use(express.static("public"));
 app.set("view engine","ejs");
+app.use(methodOverride('_method'))
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.json({limit : '1mb'}))
@@ -50,6 +53,7 @@ app.use(uploadRoutes);
 app.use(loginRoutes);
 app.use(registerRoutes);
 app.use(searchRoutes);
+app.use(profileRoutes);
 
 app.listen("3000",()=>{
     console.log("server is listening!");
