@@ -21,7 +21,6 @@ const registerRoutes=require('./routes/register');
 const loginRoutes=require('./routes/login');
 const searchRoutes=require('./routes/search.js');
 const faker = require("faker");
- 
 
 mongoose.connect("mongodb://localhost/bot_kill",{useNewUrlParser:true,useUnifiedTopology: true});
 

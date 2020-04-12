@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken')
 router.use(cookieParser())
 
 router.get("/login",(req,res)=>{
-    res.render("login");
+    res.render("login",{message : null});
 });
 
 
@@ -17,7 +17,7 @@ router.post('/login',async (req,res)=>{
             const user = await User.findOne({username : req.body.username}).exec();
             
         if(!user){
-            res.status(400).send({ message: "The username does not exist" });
+            res.render("login",{ message: "The username does not exist" })
         }   
                 // console.log(user)
         // console.log(req.body.password)
@@ -40,7 +40,7 @@ router.post('/login',async (req,res)=>{
         }
 
         else{
-            res.send('Wrong Password entered')
+            res.render("login",{ message: "Password is incorrect" })
         }
     } catch (error) {
         console.log(error)

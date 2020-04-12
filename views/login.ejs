@@ -18,8 +18,16 @@
             <i class="fa fa-list-ul" aria-hidden="true"></i>
             <i class="fa fa-paperclip" aria-hidden="true"></i> -->
     
-    
-    
+            <% if(message){ %>
+            <div class="message">
+                <div class="message-head">Warning</div>
+                <ul>
+                    <li>
+                    <div class="message-content"><%-message%></div>
+                    </li>
+                </ul>
+            </div>
+            <% }%>
             <div class="flip-container" id="myCard">
                 <div class="flipper">
                     <div class="front">
@@ -27,8 +35,8 @@
                             <div class="head">Log in</div>
                             <div class="para">This is a secure system and you will need to provide your login details to access the site</div>
                             <form action="/login" method="POST">
-                                <input type="text" placeholder="Username" name="username">
-                                <input type="password" placeholder="Password" name="password">
+                                <input type="text" placeholder="Username" name="username" required>
+                                <input type="password" placeholder="Password" name="password" required>
                                 <div id="button" class="change">Forgot password?</div>
                                 <button>Login</button>
                             </form>

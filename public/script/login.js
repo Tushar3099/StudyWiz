@@ -1,6 +1,13 @@
 
 document.querySelector('#button').addEventListener('click',(e)=>{
 
+    var message = document.querySelector('.message')
+
+    if(message){
+        message.style.display = 'none';
+    }
+
+
     document.querySelector("#myCard").classList.remove("unflip")
     document.querySelector("#myCard").classList.add("flip")
 
@@ -16,6 +23,11 @@ document.querySelector('#button').addEventListener('click',(e)=>{
 })
 
 document.querySelector('#button2').addEventListener('click',()=>{
+    var message = document.querySelector('.message')
+
+    if(message){
+        message.style.display = 'none';
+    }
 
     document.querySelector("#myCard").classList.remove("flip")
     document.querySelector("#myCard").classList.add("unflip")
